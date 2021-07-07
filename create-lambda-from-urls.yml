@@ -5,6 +5,11 @@ Parameters:
   ZipFileName:
     Type: String
     Default: my-deployment-package.zip
+
+  LambdaFunctionHandler:
+    Type: String
+    Default: copy-to-s3-zip.lambda_handler
+    
   Url:
     Type: String
     Default: https://raw.githubusercontent.com/ambasad/create-lambda-from-urls/master/copy-to-s3-zip.py
@@ -22,7 +27,7 @@ Resources:
     Properties:
       Role: !GetAtt MyFunctionRole.Arn
       Runtime: python3.8
-      Handler: index.handler
+      Handler: !Ref LambdaFunctionHandler
       Code:
         S3Bucket: !Ref S3CopyAndZippedBucket
         S3Key: !Ref ZipFileName
@@ -145,3 +150,6 @@ Resources:
                 Action:
                   - s3:PutObject
                 Resource: '*'
+Outputs:
+  MyFunction:
+    Value: !Ref MyFunction
