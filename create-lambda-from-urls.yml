@@ -153,3 +153,5 @@ Resources:
 Outputs:
   MyFunction:
     Value: !Ref MyFunction
+  S3CopyAndZippedBucket:
+    Value: !Ref S3CopyAndZippedBucket
